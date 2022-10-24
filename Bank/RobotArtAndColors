@@ -1,0 +1,54 @@
+robot_art = r"""
+          [0]: {head_name}
+          |Is available: {head_status}
+          |Attack Level: {head_attack}                              
+          |Armor Defense Level: {head_defense}
+          |Energy consumption: {head_energy_consump}
+                  ^
+                  |                  [1]: {weapon_name}
+                  |                  |Is available: {weapon_status}
+        ____      |    ____          |Attack Level: {weapon_attack}
+        |oooo|  ____  |oooo| ------> |Armor Defense Level: {weapon_defense}
+        |oooo| '    ' |oooo|         |Energy consumption: {weapon_energy_consump}
+        |oooo|/\_||_/\|oooo|       
+        `----' / __ \  `----'          [2]: {left_arm_name}
+      '/  |#|/\/__\/\|#|  \'           |Is available: {left_arm_status}
+      /  \|#|| |/\| ||#|/  \           |Attack Level: {left_arm_attack}
+      / \_/|_|| |/\| ||_|\_/ \         |Armor Defense Level: {left_arm_defense}
+    |_\/    O\=----=/O    \/_|         |Energy consumption: {left_arm_energy_consump}
+    <_>      |=\__/=|      <_> ------> 
+    <_>      |------|      <_>       [3]: {right_arm_name}
+    | |   ___|======|___   | |       |Is available: {right_arm_status}
+   // \\ / |O|======|O| \  //\\      |Attack Level: {right_arm_attack}
+   |  |  | |O+------+O| |  |  |      |Armor Defense Level: {right_arm_defense}
+   |\/|  \_+/        \+_/  |\/|      |Energy consumption: {right_arm_energy_consump}
+   \__/ _|||        |||_   \__/        
+        | ||        || |          [4]: {left_leg_name} 
+       [==|]        [|==]         |Is available: {left_leg_status}
+       [===]        [===]         |Attack Level: {left_leg_attack}
+        >_<          >_<          |Armor Defense Level: {left_leg_defense}
+       || ||        || ||         |Energy consumption: {left_leg_energy_consump}
+       || ||        || || ------> 
+       || ||        || ||          [5]: {right_leg_name}
+     __|\_/|__    __|\_/|__        |Is available: {right_leg_status}
+    /___n_n___\  /___n_n___\       |Attack Level: {right_leg_attack}
+               |                   |Armor Defense Level: {right_leg_defense}
+               |                   |Energy consumption: {right_leg_energy_consump}
+               |
+               |
+               |
+               \_________________>|.o.| [6]: Recharge Energy                   
+    """
+
+colors = {
+            "BLACK": '\x1b[90m',
+            "BLUE": '\x1b[94m',
+            "CYAN": '\x1b[96m',
+            "GREEN": '\x1b[92m',
+            "MAGENTA": '\x1b[95m',
+            "RED": '\x1b[91m',
+            "WHITE": '\x1b[97m',
+            "YELLOW":'\x1b[93m',
+        }
+
+menu_colors = {"WHITE": '\x1b[97m'}

@@ -1,0 +1,147 @@
+class Robot:
+    def __init__(self, name, color_code):
+        self.name = name
+        self.color_code = color_code
+        self.energy = 100
+        self.health = 100
+        self.on = True
+        self.parts = [
+            Part("Head", attack_level=5, armor_defense_level=100, energy_consumption=5),
+            Part("Weapon", attack_level=18, armor_defense_level=10, energy_consumption=15),
+            Part("Left Arm", attack_level=10, armor_defense_level=20, energy_consumption=10),
+            Part("Right Arm", attack_level=7, armor_defense_level=20, energy_consumption=5),
+            Part("Left Leg", attack_level=12, armor_defense_level=20, energy_consumption=10),
+            Part("Right Leg", attack_level=10, armor_defense_level=20, energy_consumption=5),
+        ]
+    
+
+    def manage_parts_points(self):
+      points_available = 10
+
+      while(points_available > 0):
+       
+        self.print_status()
+        print("----" * 10)
+        print("Available parts to upgrade:")
+        print("[0] Head")
+        print("[1] Weapon")
+        print("[2] Left Arm")
+        print("[3] Right Arm")
+        print("[4] Left Leg")
+        print("[5] Right Leg")
+
+        part_to_upgrade = int(input("Select a part to upgrade: "))
+
+        if(part_to_upgrade >= 0 and part_to_upgrade < 6):
+          print("----" * 10)
+          print("[1] Attack Level")
+          print("[2] Armor Defense Level")
+
+          part_attribute = input("Select attack or defense to upgrade: ")
+
+          if(part_attribute == "1"):
+            print(f"You have {points_available} to use")
+            
+            user_input = int(input("How many points you want to use: "))
+
+            if(user_input <= points_available):
+              points_available = points_available - user_input
+
+              self.parts[part_to_upgrade].attack_level = self.parts[part_to_upgrade].attack_level + user_input
+
+            else:
+              print("You don't have enough points")
+
+          elif(part_attribute == "2"):
+            print(f"You have {points_available} points to use")
+          
+            user_input = int(input("How many points you want to use: "))
+
+            if(user_input <= points_available):
+              points_available = points_available - user_input
+
+              self.parts[part_to_upgrade].armor_defense_level = self.parts[part_to_upgrade].armor_defense_level + user_input
+
+            else:
+              print("You don't have enough points")
+
+          else:
+            print("Select a valid option!")
+
+        else:
+          print("Select a valid option!")
+
+    def print_status(self):
+        print(self.color_code)
+        str_robot = robot_art.format(**self.get_part_status())
+        self.greet()
+        self.print_energy_and_system()
+        print(str_robot)
+        print(menu_colors["WHITE"])
+    
+
+    def greet(self):
+        print(f"Hello, I'm robot {self.name}")
+    
+
+    def print_energy_and_system(self):
+        print(self.color_code)
+        print(f"SYSTEM OPERATIONAL: {self.on}")
+        print(f"CURRENT ENERGY OF THE CORE: {self.energy}")
+        print(f"HEALTH STATUS: {self.health}")
+
+    def reduce_health(self, attack_level):
+      self.health = self.health - attack_level
+
+      if(self.health <= 0):
+        self.health = 0
+        
+    def has_health(self):
+      if(self.health == 0):
+        return False
+      return True
+    
+    def get_part_status(self):
+      part_status = {}
+      for part in self.parts:
+        status_dict = part.get_status_dict()
+        part_status.update(status_dict)
+      return part_status
+      
+
+    def is_there_available_part(self):
+        for part in self.parts:
+          if part.is_available():
+             return True
+        return False
+    
+
+    def is_on(self):
+            return self.energy >= 0
+
+    def attack(self, enemy_robot, part_to_use, part_to_attack):
+        if(enemy_robot.parts[part_to_attack].armor_defense_level == 0):
+          enemy_robot.reduce_health(self.parts[part_to_use].attack_level)
+          self.energy -= self.parts[part_to_use].energy_consumption
+
+        else:
+          enemy_robot.parts[part_to_attack].reduce_defense(self.parts[part_to_use].attack_level) 
+          self.energy -= self.parts[part_to_use].energy_consumption
+    
+    def get_part_status(self):
+            part_status = {}
+            for part in self.parts:
+                status_dict = part.get_status_dict()
+                part_status.update(status_dict)
+            return part_status
+
+    def energy_recharge(self):
+      if(self.energy < 100):
+        self.energy = self.energy + 5
+        print(f"REMAINING ENERGY: {self.energy}")
+        return True
+
+      else:
+        print("----" * 10)
+        print("CORE FULLY ENERGIZED, THIS OPERATION CANNOT BE PERFORMED!")
+        return False
